@@ -11,7 +11,7 @@ class AlertsDialouge: UIViewController {
     var coordinator: MainCoordinator?
     
     let dialougeView: UIView = {
-       let dialougeView = UIView()
+        let dialougeView = UIView()
         dialougeView.backgroundColor = .white
         dialougeView.layer.cornerRadius = 10
         dialougeView.layer.masksToBounds = true
@@ -28,7 +28,7 @@ class AlertsDialouge: UIViewController {
     }()
     
     let alertMessage: UILabel = {
-       let alertMessage = UILabel()
+        let alertMessage = UILabel()
         alertMessage.font = AppFont.regularPoppin14
         alertMessage.textColor = .black
         alertMessage.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +44,7 @@ class AlertsDialouge: UIViewController {
     }()
     
     let closeDialogeButton: UIButton = {
-       let closeDialogeButton = UIButton()
+        let closeDialogeButton = UIButton()
         closeDialogeButton.backgroundColor = .blue.withAlphaComponent(0.5)
         closeDialogeButton.layer.cornerRadius = 10
         closeDialogeButton.layer.masksToBounds = true
@@ -54,15 +54,15 @@ class AlertsDialouge: UIViewController {
         closeDialogeButton.translatesAutoresizingMaskIntoConstraints = false
         return closeDialogeButton
     }()
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUi()
         setUpConstrains()
         configureActions()
     }
-
+    
     private func configureUi() {
         view.addSubview(dialougeView)
         dialougeView.addSubview(alertTitle)
@@ -81,13 +81,13 @@ class AlertsDialouge: UIViewController {
     }
     
     func configureAlert(title: String, message: String, imageName: String, imageTintColor: UIColor) {
-            alertTitle.text = title
-            alertMessage.text = message
-            if let image = UIImage(systemName: imageName)?.withRenderingMode(.alwaysTemplate) {
-                alertImage.image = image
-                alertImage.tintColor = imageTintColor
-            }
+        alertTitle.text = title
+        alertMessage.text = message
+        if let image = UIImage(systemName: imageName)?.withRenderingMode(.alwaysTemplate) {
+            alertImage.image = image
+            alertImage.tintColor = imageTintColor
         }
+    }
 }
 
 extension AlertsDialouge{

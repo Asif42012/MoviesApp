@@ -8,8 +8,6 @@
 import Foundation
 import UIKit
 
-import UIKit
-
 class ThickSlider: UISlider {
     var trackHeight: CGFloat = 8.0 // Adjust the height as needed
 

@@ -40,6 +40,10 @@ class EmptySearchResults: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureUI()
+    }
+    
+    private func configureUI(){
         addSubview(searchImage)
         addSubview(noResultLabel)
         addSubview(noResultDescriptionLabel)

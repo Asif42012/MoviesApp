@@ -26,6 +26,10 @@ class MovieYearView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureUI()
+    }
+    
+    private func configureUI(){
         addSubview(movieYearIcon)
         addSubview(movieYearLabel)
         setUpViews()

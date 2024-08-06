@@ -20,6 +20,10 @@ class AboutMovieView: UIScrollView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureUI()
+    }
+    
+    private func configureUI(){
         addSubview(aboutMovieLabel)
         translatesAutoresizingMaskIntoConstraints = false
         isScrollEnabled = true
@@ -43,9 +47,8 @@ class AboutMovieView: UIScrollView {
         ])
     }
     override func layoutSubviews() {
-            super.layoutSubviews()
-            // Adjust the content size based on the label's content size
-            let contentHeight = aboutMovieLabel.sizeThatFits(CGSize(width: aboutMovieLabel.frame.width, height: CGFloat.greatestFiniteMagnitude)).height + 20
-            contentSize = CGSize(width: frame.width, height: contentHeight)
-        }
+        super.layoutSubviews()
+        let contentHeight = aboutMovieLabel.sizeThatFits(CGSize(width: aboutMovieLabel.frame.width, height: CGFloat.greatestFiniteMagnitude)).height + 20
+        contentSize = CGSize(width: frame.width, height: contentHeight)
+    }
 }

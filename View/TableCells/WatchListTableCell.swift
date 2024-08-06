@@ -53,6 +53,11 @@ class WatchListTableCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configureUI()
+        configureAction()
+    }
+    
+    private func configureUI(){
         contentView.addSubview(contentViews)
         contentViews.addSubview(moviePosterImage)
         contentViews.addSubview(movieTitleLabel)
@@ -65,8 +70,6 @@ class WatchListTableCell: UITableViewCell {
         self.selectedBackgroundView = bgColorView
         setupConstraints()
         isUserInteractionEnabled = true
-        
-        configureAction()
     }
     
     required init?(coder: NSCoder) {
@@ -125,7 +128,6 @@ class WatchListTableCell: UITableViewCell {
         movieYearView.movieYearLabel.text = String(movie.releaseDate.prefix(4))
         movieDurationView.movieTimeLabel.text = String("\(movie.runtime) Minutes")
         movieGenreView.genreTypeLabel.text = movie.genres.first?.name
-        
         //redesing views//
         movieGenreView.genreTypeLabel.textColor = .white
         movieGenreView.genreIcon.tintColor = .white

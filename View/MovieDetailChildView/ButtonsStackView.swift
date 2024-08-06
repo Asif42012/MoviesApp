@@ -53,17 +53,21 @@ class ButtonsStackView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureUI()
+        configureActions()
+    }
+    
+    private func configureUI(){
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(buttonsStakView)
         buttonsStakView.addArrangedSubview(aboutButton)
         buttonsStakView.addArrangedSubview(reviewButton)
         buttonsStakView.addArrangedSubview(castButton)
         setUpConstrains()
-        setUpButtonActions()
         addBottomBorder(to: aboutButton)
     }
     
-    private func setUpButtonActions() {
+    private func configureActions() {
         aboutButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         reviewButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         castButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
@@ -85,15 +89,15 @@ class ButtonsStackView: UIView {
     }
     
     @objc private func buttonTapped(_ sender: UIButton) {
-            addBottomBorder(to: sender)
-            if sender == aboutButton {
-                delegate?.didTapAboutButton()
-            } else if sender == reviewButton {
-                delegate?.didTapReviewButton()
-            } else if sender == castButton {
-                delegate?.didTapCastButton()
-            }
+        addBottomBorder(to: sender)
+        if sender == aboutButton {
+            delegate?.didTapAboutButton()
+        } else if sender == reviewButton {
+            delegate?.didTapReviewButton()
+        } else if sender == castButton {
+            delegate?.didTapCastButton()
         }
+    }
     
     private func addBottomBorder(to button: UIButton) {
         bottomBorder?.removeFromSuperview()

@@ -26,6 +26,10 @@ class MovieGenreView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureUI()
+    }
+    
+    private func configureUI(){
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(genreIcon)
         addSubview(genreTypeLabel)

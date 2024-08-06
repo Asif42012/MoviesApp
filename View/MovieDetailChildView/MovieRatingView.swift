@@ -10,22 +10,26 @@ import UIKit
 class MovieRatingView: UIView {
     
     let starIcon: UIImageView = {
-       let starIcon = UIImageView(image: UIImage(named: "Ic_stars"))
+        let starIcon = UIImageView(image: UIImage(named: "Ic_stars"))
         starIcon.contentMode = .scaleAspectFit
         starIcon.translatesAutoresizingMaskIntoConstraints = false
         return starIcon
     }()
     
     let ratingLabel: UILabel = {
-       let ratingLabel = UILabel()
+        let ratingLabel = UILabel()
         ratingLabel.font = AppFont.medium12
         ratingLabel.textColor = UIColor(red: 255/255, green: 135/255, blue: 0, alpha: 1)
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         return ratingLabel
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureUI()
+    }
+    
+    private func configureUI(){
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 8
         layer.masksToBounds = true

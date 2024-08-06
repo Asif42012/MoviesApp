@@ -39,6 +39,10 @@ class CenterCotentView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureUI()
+    }
+    
+    private func configureUI(){
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(emptyBoxImage)
         addSubview(noMovieLabel)
