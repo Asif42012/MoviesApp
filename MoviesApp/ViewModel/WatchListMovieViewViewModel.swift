@@ -22,6 +22,47 @@ class WatchListControllerViewModel: NSObject{
     public weak var delegate: WatchListControllerViewModelDelegate? = nil
     public weak var watchListDelegate: WatchListMovieTableViewRowItemDelegate? = nil
     
+    //Network Layer approach//
+    private func createRequestToken() async throws -> RequestTokenResponse {
+        let request = CreateTokenRequest()
+        let response = try await networkService.request(request)
+        return response
+    }
+    
+    private func createSession(requestToken: String) async throws -> CreateSessionResponse {
+        let request = CreateSessionRequest(requestToken: requestToken)
+        let response = try await networkService.request(request)
+        UserDefaults.standard.set(response.sessionId, forKey: "SessionID")
+        return response
+    }
+    
+    
+    private func authenticateRequestToken(requestToken: String) {
+        let request = AuthenticationRequest(requestToken: requestToken)
+        guard let url = request.url else {
+            print("Invalid URL")
+            return
+        }
+        DispatchQueue.main.async {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    private func getSessionId() async throws -> String {
+        if let sessionId = UserDefaults.standard.string(forKey: "SessionID") {
+            return sessionId
+        } else {
+            // Create a new session ID if not available
+            let requestToken = try await createRequestToken()
+            authenticateRequestToken(requestToken: requestToken.requestToken)
+            
+            // Wait for user to authenticate, then create session
+            try await Task.sleep(nanoseconds: 30 * 1_000_000_000) // 60 seconds
+            let sessionId = try await createSession(requestToken: requestToken.requestToken)
+            return sessionId.sessionId
+        }
+    }
+    
     // MARK: - Data Request
     func fetchMovieDetails(by id: Int) async throws -> MovieDetails {
         let request = MovieDetailsRequest(movieId: id)
@@ -29,9 +70,7 @@ class WatchListControllerViewModel: NSObject{
     }
     
     func fetchWatchListMovies() async throws -> [Movie] {
-        guard let sessionId = UserDefaults.standard.string(forKey: "SessionID") else {
-            throw CustomError.invalidSession
-        }
+        let sessionId = try await getSessionId()
         let request = WatchListMoviesRequest(sessionId: sessionId)
         let response = try await networkService.request(request)
         let watchListResponse = response.results

@@ -172,7 +172,7 @@ class MovieDetailsViewViewModel:NSObject {
             authenticateRequestToken(requestToken: requestToken.requestToken)
             
             // Wait for user to authenticate, then create session
-            try await Task.sleep(nanoseconds: 60 * 1_000_000_000) // 60 seconds
+            try await Task.sleep(nanoseconds: 30 * 1_000_000_000) // 60 seconds
             let sessionId = try await createSession(requestToken: requestToken.requestToken)
             return sessionId.sessionId
         }

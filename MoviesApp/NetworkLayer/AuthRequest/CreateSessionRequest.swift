@@ -21,6 +21,6 @@ struct CreateSessionRequest: DataRequest {
     }
     
     var body: [String : Any]? {
-        [ "requestToken" : requestToken ]
+        return ["request_token": requestToken]
     }
 }
