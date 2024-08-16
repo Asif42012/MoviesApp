@@ -32,7 +32,7 @@ class FAQContentView: UIView {
     }()
     
     let headingTitle: UILabel = {
-       let headingTitle = UILabel()
+        let headingTitle = UILabel()
         headingTitle.text = "Gems FAQ"
         headingTitle.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         headingTitle.textColor = AppFont.faqTextColor

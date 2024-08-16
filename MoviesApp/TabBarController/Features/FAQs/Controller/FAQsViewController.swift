@@ -51,11 +51,7 @@ class FAQsViewController: BaseViewController {
 
 extension FAQsViewController: FAQContentViewDelegate {
     func didTapConfidantClubMembers() {
-        // Handle the tap event here, e.g., navigate to a new screen or show an alert
         print("Confidant Club members tapped!")
-        
-        // Example: Navigate to a new screen
-        // coordinator.navigateToConfidantClubMembers()
     }
 }
 
