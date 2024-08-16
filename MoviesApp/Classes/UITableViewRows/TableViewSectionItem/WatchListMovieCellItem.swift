@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol WatchListMovieTableViewRowItemDelegate: AnyObject{
-    func WatchListMovieTableViewRowItemDelegate(cell: WatchListTableCell, rowItem: WatchListMovieCellItem)
+    func watchListMovieTableViewRowItemDelegate(cell: WatchListTableCell, rowItem: WatchListMovieCellItem)
 }
 
 final class WatchListMovieCellItem: TableViewCellItem {
@@ -34,6 +34,6 @@ final class WatchListMovieCellItem: TableViewCellItem {
 
 extension WatchListMovieCellItem: WatchListTableCellDelegate{
     func watchListTableCellDidSelect(cell: WatchListTableCell) {
-        delegate?.WatchListMovieTableViewRowItemDelegate(cell: cell, rowItem: self)
+        delegate?.watchListMovieTableViewRowItemDelegate(cell: cell, rowItem: self)
     }
 }

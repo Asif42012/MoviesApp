@@ -1,5 +1,5 @@
 //
-//  ReviewResponce.swift
+//  ReviewResponse.swift
 //  MoviesApp
 //
 //  Created by Asif Hussain on 02/08/2024.
@@ -10,7 +10,7 @@ import Foundation
 struct ReviewsResponse: Codable {
     let id: Int
     let page: Int
-    let results: [Review]
+    let results: [MovieReview]
     let totalPages: Int
     let totalResults: Int
 

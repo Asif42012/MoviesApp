@@ -35,4 +35,38 @@ struct Movie: Codable {
         case voteCount = "vote_count"
         case runtime
     }
+    
+    init(backdropPath: String, genreIDS: [Int], id: Int, originalTitle: String, overview: String, popularity: Double, posterPath: String, releaseDate: String, title: String, video: Bool, voteAverage: Double, voteCount: Int, runtime: Int?) {
+        self.backdropPath = backdropPath
+        self.genreIDS = genreIDS
+        self.id = id
+        self.originalTitle = originalTitle
+        self.overview = overview
+        self.popularity = popularity
+        self.posterPath = posterPath
+        self.releaseDate = releaseDate
+        self.title = title
+        self.video = video
+        self.voteAverage = voteAverage
+        self.voteCount = voteCount
+        self.runtime = runtime
+    }
+    
+    init(movie: Movie) {
+        self.init(
+            backdropPath: movie.backdropPath,
+            genreIDS: movie.genreIDS,
+            id: movie.id,
+            originalTitle: movie.originalTitle,
+            overview: movie.overview,
+            popularity: movie.popularity,
+            posterPath: movie.posterPath,
+            releaseDate: movie.releaseDate,
+            title: movie.title,
+            video: movie.video,
+            voteAverage: movie.voteAverage,
+            voteCount: movie.voteCount,
+            runtime: movie.runtime
+        )
+    }
 }

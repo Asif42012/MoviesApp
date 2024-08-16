@@ -100,7 +100,7 @@ class MovieReviewsView: UITableViewCell {
         userImage.image = nil
     }
     
-    func configure(with review: Review) {
+    func configure(with review: MovieReview) {
         userName.text = review.author
         if let rating = review.authorDetails.rating {
             userRating.text = String(rating)

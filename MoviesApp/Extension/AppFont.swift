@@ -21,6 +21,7 @@ enum AppFont {
         return UIFont(name: weight.rawValue, size: size)
     }
     static let tabBackgroundColor = UIColor(red: 36/255, green: 42/255, blue: 50/255, alpha: 1)
+    static let faqTextColor = UIColor(red: 28/255, green: 28/255, blue: 30/255, alpha: 1)
 }
 
 enum Roboto: String {

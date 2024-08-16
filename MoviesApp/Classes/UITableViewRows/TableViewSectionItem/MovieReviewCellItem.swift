@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 
 final class MovieReviewCellItem: TableViewCellItem {
-    let item: Review
+    let item: MovieReview
   
-    init(item: Review) {
+    init(item: MovieReview) {
         self.item = item
     }
     
