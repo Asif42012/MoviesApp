@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DefaultMovieViewModelFactory: MovieViewModelFactory {
+final class DefaultMovieViewModelFactory: MovieViewModelFactory {
     private let movieService: MovieService
     private let searchMovieService: SearchMovieService
     private let watchListMovieService: WatchListMovieService

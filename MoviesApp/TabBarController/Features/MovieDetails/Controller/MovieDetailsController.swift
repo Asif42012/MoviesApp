@@ -39,8 +39,6 @@ class MovieDetailsController: BaseViewController {
         super.viewDidLoad()
         configureUI()
         configureViewModel()
-        fetchMovieDetails()
-        loadWatchlistIds()
     }
 }
 
@@ -105,31 +103,9 @@ extension MovieDetailsController{
     }
     
     private func configureCustomView() {
+        updateUI()
         tableView.setSections(viewModel.tableSections)
         collectionView.setSections(viewModel.collectionViewSections)
-    }
-    
-    private func fetchMovieDetails() {
-        Task {
-            do {
-                let movieDetails = try await viewModel.fetchMovieDetails()
-                updateUI(with: movieDetails)
-            } catch {
-                print("Failed to fetch movie details: \(error)")
-            }
-        }
-    }
-    
-    
-    private func loadWatchlistIds() {
-        viewModel.loadWatchlistIds { result in
-            switch result {
-            case .success:
-                print("Watchlist IDs loaded successfully")
-            case .failure(let error):
-                print("Failed to load watchlist IDs: \(error)")
-            }
-        }
     }
     
     private func showAlertDialog(title: String, message: String, imageName: String, imageTintColor: UIColor) {
@@ -148,13 +124,17 @@ extension MovieDetailsController{
         present(ratingDialogue, animated: true, completion: nil)
     }
     
-    private func updateUI(with movieDetails: MovieDetails) {
-        DispatchQueue.main.async { [self] in
-            movieInfo.configureView(with: movieDetails)
-            movieCoverView.configureView(with: movieDetails)
-            aboutMovieView.aboutMovieLabel.text = movieDetails.overview
+    private func updateUI() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self, let movieDetails = self.viewModel.movieDetails else {
+                return
+            }
+            self.movieInfo.configureView(with: movieDetails)
+            self.movieCoverView.configureView(with: movieDetails)
+            self.aboutMovieView.aboutMovieLabel.text = movieDetails.overview
         }
     }
+    
 }
 
 extension MovieDetailsController: MovieDetailsViewViewModelDelegate {
@@ -168,29 +148,21 @@ extension MovieDetailsController: HeaderViewButtonDidTapDelegate {
         coordinator.popViewController()
     }
     
-    func saveButtonDidTap() {
+    func saveButtonDidTap(){
         Task { @MainActor in
             do {
-                let result = await viewModel.saveCurrentMovieAsync()
-                
-                switch result {
-                case .success(let success):
-                    if success {
-                        showAlertDialog(title: "Success", message: "Movie is Added to watchList",
-                                        imageName: "checkmark.circle", imageTintColor: .green)
-                    } else {
-                        showAlertDialog(title: "Error", message: "Movie is already Added to watchList",
-                                        imageName: "xmark.octagon", imageTintColor: .red)
-                    }
-                case .failure(let error):
-                    print("Error saving movie: \(error)")
-                    showAlertDialog(title: "Error", message: "Failed to save movie: \(error.localizedDescription)",
-                                    imageName: "xmark.octagon", imageTintColor: .red)
+                let result = try await viewModel.saveCurrentMovieAsync()
+                print("Result from save movie \(result)")
+                if result == true {
+                    showAlertDialog(title: "Success", message: "Movie is Added to watchList",
+                                    imageName: "checkmark.circle", imageTintColor: .green)
+                } else {
+                    showAlertDialog(title: "Failure", message: "Movie already in Watchlist",
+                                    imageName: "xmark.octagon", imageTintColor: .green)
                 }
             } catch {
                 print("Unexpected error: \(error)")
-                showAlertDialog(title: "Error", message: "Unexpected error occurred: \(error.localizedDescription)",
-                                imageName: "xmark.octagon", imageTintColor: .red)
+                showAlertDialog(title: "Error", message: "Unexpected error occurred: \(error)", imageName: "xmark.octagon", imageTintColor: .red)
             }
         }
     }
@@ -211,8 +183,7 @@ extension MovieDetailsController: MovieRatingControllerDelegate {
                 print("Rating submitted successfully: \(success)")
             } catch {
                 print("Failed to submit rating: \(error)")
-                showAlertDialog(title: "Error", message: "Failed to submit rating: \(error.localizedDescription)",
-                                imageName: "xmark.octagon", imageTintColor: .red)
+                showAlertDialog(title: "Error", message: "Failed to submit rating: \(error)", imageName: "xmark.octagon", imageTintColor: .red)
             }
         }
     }

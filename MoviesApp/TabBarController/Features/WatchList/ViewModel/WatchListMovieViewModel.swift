@@ -15,7 +15,6 @@ protocol WatchListControllerViewModelDelegate: AnyObject{
 
 class WatchListControllerViewModel: NSObject, MovieSearchViewDataSource {
     
-    private let networkService: NetworkService = DefaultNetworkService()
     private let movieWatchListService: WatchListMovieService
     
     var tableRows: [TableViewSection] = []

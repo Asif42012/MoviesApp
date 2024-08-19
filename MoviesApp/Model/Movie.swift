@@ -69,4 +69,24 @@ struct Movie: Codable {
             runtime: movie.runtime
         )
     }
+    
+    func toMovieDetails() -> MovieDetails {
+        return MovieDetails(
+            backdropPath: self.backdropPath,
+            genres: [],
+            id: self.id,
+            originalTitle: self.originalTitle,
+            overview: self.overview,
+            popularity: self.popularity,
+            posterPath: self.posterPath,
+            releaseDate: self.releaseDate,
+            runtime: self.runtime!,
+            status: "",
+            tagline: "",
+            title: self.title,
+            video: self.video,
+            voteAverage: self.voteAverage,
+            voteCount: self.voteCount
+        )
+    }
 }

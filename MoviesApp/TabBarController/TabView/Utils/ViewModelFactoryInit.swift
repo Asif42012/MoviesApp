@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ViewModelFactoryInitializer {
+final class ViewModelFactoryInitializer {
     static func initializeViewModelFactory() -> MovieViewModelFactory {
         let networkService = DefaultNetworkService()
         let authService = DefaultAuthService(networkService: networkService)

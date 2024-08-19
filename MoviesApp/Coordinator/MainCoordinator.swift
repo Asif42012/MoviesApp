@@ -17,19 +17,28 @@ class MainCoordinator: Coordinator {
     }
     
     func start() {
-        let homeTabController = FAQsViewController(coordinator: self, viewModel: GemsFAQViewModel())
+        let homeTabController = MovieTabBarController(coordinator: self)
         navigationController.setViewControllers([homeTabController], animated: false)
     }
     
     
     func showMovieDetails(_ selectedMovie: Movie) {
-        let movieDetailsController = MovieDetailsController(coordinator: self, viewModel: MovieDetailsViewViewModel(movie: selectedMovie))
+        let networkService = DefaultNetworkService()
+        let authService = DefaultAuthService(networkService: networkService)
+        let movieDetailsService = DefaultMovieDetailsService(networkService: networkService, authService: authService)
+        let viewModel = MovieDetailsViewViewModel(movie: selectedMovie, movieDetailsService: movieDetailsService, authService: authService)
+        
+        let movieDetailsController = MovieDetailsController(coordinator: self, viewModel: viewModel)
         movieDetailsController.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(movieDetailsController, animated: true)
     }
-    
+
     func showMovieDetailsFromWatchList(_ selectedMovie: MovieDetails) {
-        let movieDetailsController = MovieDetailsController(coordinator: self, viewModel: MovieDetailsViewViewModel(movieDetails: selectedMovie))
+        let networkService = DefaultNetworkService()
+        let authService = DefaultAuthService(networkService: networkService)
+        let viewModel = MovieDetailsViewViewModel(movieDetails: selectedMovie, authService: authService, networkService: networkService)
+        
+        let movieDetailsController = MovieDetailsController(coordinator: self, viewModel: viewModel)
         movieDetailsController.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(movieDetailsController, animated: true)
     }

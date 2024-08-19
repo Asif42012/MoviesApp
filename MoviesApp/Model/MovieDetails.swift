@@ -71,6 +71,23 @@ struct MovieDetails: Codable, Equatable {
             voteCount: movieDetails.voteCount
         )
     }
+    
+    func toMovie() -> Movie {
+        return Movie(backdropPath: self.backdropPath,
+                     genreIDS: [],
+                     id: self.id,
+                     originalTitle: self.originalTitle,
+                     overview: self.overview,
+                     popularity: self.popularity,
+                     posterPath: self.posterPath,
+                     releaseDate: self.releaseDate,
+                     title: self.title,
+                     video: self.video,
+                     voteAverage: self.voteAverage,
+                     voteCount: self.voteCount,
+                     runtime: self.runtime
+        )
+    }
 }
 // MARK: - Genre
 struct Genre: Codable, Equatable {

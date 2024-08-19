@@ -63,6 +63,4 @@ final class DefaultAuthService: MovieAuthService {
             }
         }
     }
-    
-    
 }
